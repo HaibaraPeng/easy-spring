@@ -8,20 +8,29 @@ import org.example.spring.beans.exception.BeanException;
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
 
+    private final InstantiationStrategy instantiationStrategy;
+
+    public AbstractAutowireCapableBeanFactory(InstantiationStrategy instantiationStrategy) {
+        this.instantiationStrategy = instantiationStrategy;
+    }
+
     @Override
     protected Object createBean(String name, BeanDefinition beanDefinition) {
         return doCreateBean(name, beanDefinition);
     }
 
     private Object doCreateBean(String name, BeanDefinition beanDefinition) {
-        Class beanClass = beanDefinition.getBeanClass();
         Object bean;
         try {
-            bean = beanClass.newInstance();
+            bean = createBeanInstance(beanDefinition);
         } catch (Exception e) {
             throw new BeanException("Instantiation of bean failed", e);
         }
         addSingleton(name, bean);
         return bean;
+    }
+
+    protected Object createBeanInstance(BeanDefinition beanDefinition) {
+        return instantiationStrategy.instantiate(beanDefinition);
     }
 }

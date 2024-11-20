@@ -13,6 +13,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
     private final Map<String, BeanDefinition> beanDefinitions = new ConcurrentHashMap<>();
 
+    public DefaultListableBeanFactory(InstantiationStrategy instantiationStrategy) {
+        super(instantiationStrategy);
+    }
+
     @Override
     protected BeanDefinition getBeanDefinition(String name) throws BeanException {
         BeanDefinition beanDefinition = beanDefinitions.get(name);

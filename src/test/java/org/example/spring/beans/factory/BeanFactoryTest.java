@@ -1,7 +1,9 @@
 package org.example.spring.beans.factory;
 
 import org.example.spring.beans.factory.support.BeanDefinition;
+import org.example.spring.beans.factory.support.CglibInstantiationStrategy;
 import org.example.spring.beans.factory.support.DefaultListableBeanFactory;
+import org.example.spring.beans.factory.support.SimpleInstantiationStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,10 +11,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BeanFactoryTest {
 
-    DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+    @Test
+    void getBeanBySimpleInstantiationStrategy() {
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory(new SimpleInstantiationStrategy());
+        beanFactory.registerBeanDefinition("helloService", new BeanDefinition(HelloService.class));
+        HelloService helloService = (HelloService) beanFactory.getBean("helloService");
+        assertNotNull(helloService);
+        assertEquals("hello", helloService.sayHello());
+    }
 
     @Test
-    void getBean() {
+    void getBeanByCglibInstantiationStrategy() {
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory(new CglibInstantiationStrategy());
         beanFactory.registerBeanDefinition("helloService", new BeanDefinition(HelloService.class));
         HelloService helloService = (HelloService) beanFactory.getBean("helloService");
         assertNotNull(helloService);

@@ -2,7 +2,7 @@
 
 ## 最简单的bean容器
 
-> 分支：1.simple-bean-container
+> 分支：1-simple-bean-container
 
 定义一个简单的bean容器BeanFactory，内部包含一个map用以保存bean，只有注册bean和获取bean两个方法
 

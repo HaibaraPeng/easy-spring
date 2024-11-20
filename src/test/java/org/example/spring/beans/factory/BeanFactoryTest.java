@@ -1,5 +1,7 @@
 package org.example.spring.beans.factory;
 
+import org.example.spring.beans.factory.support.BeanDefinition;
+import org.example.spring.beans.factory.support.DefaultListableBeanFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,25 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BeanFactoryTest {
 
-    BeanFactory beanFactory;
-
-    @BeforeEach
-    void setUp() {
-        beanFactory = new BeanFactory();
-    }
+    DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
     @Test
     void getBean() {
-        beanFactory.registerBean("helloService", new HelloService());
+        beanFactory.registerBeanDefinition("helloService", new BeanDefinition(HelloService.class));
         HelloService helloService = (HelloService) beanFactory.getBean("helloService");
         assertNotNull(helloService);
         assertEquals("hello", helloService.sayHello());
     }
 
-    class HelloService {
-        public String sayHello() {
-            System.out.println("hello");
-            return "hello";
-        }
-    }
 }

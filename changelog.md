@@ -54,7 +54,7 @@ class BeanFactoryTest {
 
 
 
-> 代码分支：2-bean-definition-and-bean-definition-registry
+> 代码分支：2-bean-definition
 
 主要增加如下类：
 

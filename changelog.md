@@ -115,7 +115,7 @@ public class HelloService {
 
 增加BeanReference类，包装一个bean对另一个bean的引用。实例化beanA后填充属性时，若PropertyValue#value为BeanReference，引用beanB，则先去实例化beanB。 由于不想增加代码的复杂度提高理解难度，暂时不支持循环依赖，后面会在高级篇中解决该问题。
 
-```
+```java
 protected void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
     try {
         for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
@@ -140,7 +140,7 @@ protected void applyPropertyValues(String beanName, Object bean, BeanDefinition 
 
 测试：
 
-```
+```java
 public class PopulateBeanWithPropertyValuesTest {
 
 	/**
@@ -174,6 +174,56 @@ public class PopulateBeanWithPropertyValuesTest {
 		Car car = person.getCar();
 		assertThat(car).isNotNull();
 		assertThat(car.getBrand()).isEqualTo("porsche");
+	}
+}
+```
+
+## 资源和资源加载器
+
+
+
+> 代码分支：5-resource-loader
+
+Resource是资源的抽象和访问接口，简单写了三个实现类
+
+![](.\image\5\PixPin_2024-11-21_16-03-32.png)
+
+- FileSystemResource，文件系统资源的实现类
+- ClassPathResource，classpath下资源的实现类
+- UrlResource，对java.net.URL进行资源定位的实现类
+
+ResourceLoader接口则是资源查找定位策略的抽象，DefaultResourceLoader是其默认实现类
+
+测试：
+
+```java
+public class ResourceAndResourceLoaderTest {
+
+	@Test
+	public void testResourceLoader() throws Exception {
+		DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
+
+		//加载classpath下的资源
+		Resource resource = resourceLoader.getResource("classpath:hello.txt");
+		InputStream inputStream = resource.getInputStream();
+		String content = IoUtil.readUtf8(inputStream);
+		System.out.println(content);
+		assertThat(content).isEqualTo("hello world");
+
+		//加载文件系统资源
+		resource = resourceLoader.getResource("src/test/resources/hello.txt");
+		assertThat(resource instanceof FileSystemResource).isTrue();
+		inputStream = resource.getInputStream();
+		content = IoUtil.readUtf8(inputStream);
+		System.out.println(content);
+		assertThat(content).isEqualTo("hello world");
+
+		//加载url资源
+		resource = resourceLoader.getResource("https://www.baidu.com");
+		assertThat(resource instanceof UrlResource).isTrue();
+		inputStream = resource.getInputStream();
+		content = IoUtil.readUtf8(inputStream);
+		System.out.println(content);
 	}
 }
 ```

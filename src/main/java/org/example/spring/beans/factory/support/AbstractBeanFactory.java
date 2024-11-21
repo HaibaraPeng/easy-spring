@@ -2,6 +2,7 @@ package org.example.spring.beans.factory.support;
 
 import org.example.spring.beans.exception.BeanException;
 import org.example.spring.beans.factory.BeanFactory;
+import org.example.spring.beans.factory.config.BeanDefinition;
 
 /**
  * @Author Roc

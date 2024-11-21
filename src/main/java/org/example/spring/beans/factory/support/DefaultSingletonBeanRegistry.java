@@ -1,5 +1,7 @@
 package org.example.spring.beans.factory.support;
 
+import org.example.spring.beans.factory.config.SingletonBeanRegistry;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

@@ -1,4 +1,4 @@
-package org.example.spring.beans.factory.support;
+package org.example.spring.beans.factory.config;
 
 /**
  * @Author Roc

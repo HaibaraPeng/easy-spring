@@ -3,6 +3,7 @@ package org.example.spring.beans.factory.support;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import org.example.spring.beans.exception.BeanException;
+import org.example.spring.beans.factory.config.BeanDefinition;
 
 /**
  * @Author Roc

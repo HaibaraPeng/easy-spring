@@ -1,10 +1,9 @@
 package org.example.spring.beans.factory;
 
-import org.example.spring.beans.factory.support.BeanDefinition;
+import org.example.spring.beans.factory.config.BeanDefinition;
 import org.example.spring.beans.factory.support.CglibInstantiationStrategy;
 import org.example.spring.beans.factory.support.DefaultListableBeanFactory;
 import org.example.spring.beans.factory.support.SimpleInstantiationStrategy;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

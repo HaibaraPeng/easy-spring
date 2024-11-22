@@ -1,6 +1,7 @@
 package org.example.spring.beans.factory;
 
 import org.example.spring.beans.factory.config.BeanDefinition;
+import org.example.spring.beans.factory.service.HelloService;
 import org.example.spring.beans.factory.support.CglibInstantiationStrategy;
 import org.example.spring.beans.factory.support.DefaultListableBeanFactory;
 import org.example.spring.beans.factory.support.SimpleInstantiationStrategy;

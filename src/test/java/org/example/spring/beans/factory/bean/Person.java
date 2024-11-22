@@ -1,4 +1,6 @@
-package org.example.spring.beans.factory;
+package org.example.spring.beans.factory.bean;
+
+import org.example.spring.beans.factory.bean.Car;
 
 /**
  * @Author Roc

@@ -3,7 +3,7 @@ package org.example.spring.beans.factory.xml;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
 import org.example.spring.beans.PropertyValue;
-import org.example.spring.beans.exception.BeanException;
+import org.example.spring.beans.exception.BeansException;
 import org.example.spring.beans.factory.config.BeanDefinition;
 import org.example.spring.beans.factory.config.BeanReference;
 import org.example.spring.beans.factory.support.AbstractBeanDefinitionReader;
@@ -40,7 +40,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     }
 
     @Override
-    public void loadBeanDefinitions(Resource resource) throws BeanException {
+    public void loadBeanDefinitions(Resource resource) throws BeansException {
         try {
             InputStream inputStream = resource.getInputStream();
             try {
@@ -49,7 +49,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 inputStream.close();
             }
         } catch (IOException e) {
-            throw new BeanException("IOException parsing XML document from " + resource, e);
+            throw new BeansException("IOException parsing XML document from " + resource, e);
         }
     }
 
@@ -70,12 +70,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                     try {
                         clazz = Class.forName(className);
                     } catch (ClassNotFoundException e) {
-                        throw new BeanException("Cannot find class [" + className + "]");
+                        throw new BeansException("Cannot find class [" + className + "]");
                     }
 
                     String beanName = StrUtil.isNotBlank(id) ? id : StrUtil.isNotBlank(name) ? name : StrUtil.lowerFirst(clazz.getSimpleName());
                     if (getRegistry().containsBeanDefinition(beanName)) {
-                        throw new BeanException("Duplicate bean name [" + beanName + "] is not allowed");
+                        throw new BeansException("Duplicate bean name [" + beanName + "] is not allowed");
                     }
 
                     BeanDefinition beanDefinition = new BeanDefinition(clazz);
@@ -88,7 +88,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                             String propertyRef = propertyElement.getAttribute(REF_ATTRIBUTE);
 
                             if (StrUtil.isBlank(propertyName)) {
-                                throw new BeanException("The property name must not be null");
+                                throw new BeansException("The property name must not be null");
                             }
 
                             Object value = StrUtil.isNotBlank(propertyRef) ? new BeanReference(propertyRef) : propertyValue;
@@ -103,7 +103,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     }
 
     @Override
-    public void loadBeanDefinitions(String location) throws BeanException {
+    public void loadBeanDefinitions(String location) throws BeansException {
         ResourceLoader resourceLoader = getResourceLoader();
         loadBeanDefinitions(resourceLoader.getResource(location));
     }

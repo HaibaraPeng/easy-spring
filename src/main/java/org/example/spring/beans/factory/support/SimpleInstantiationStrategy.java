@@ -1,6 +1,6 @@
 package org.example.spring.beans.factory.support;
 
-import org.example.spring.beans.exception.BeanException;
+import org.example.spring.beans.exception.BeansException;
 import org.example.spring.beans.factory.config.BeanDefinition;
 
 import java.lang.reflect.Constructor;
@@ -11,13 +11,13 @@ import java.lang.reflect.Constructor;
  */
 public class SimpleInstantiationStrategy implements InstantiationStrategy {
     @Override
-    public Object instantiate(BeanDefinition beanDefinition) throws BeanException {
+    public Object instantiate(BeanDefinition beanDefinition) throws BeansException {
         Class beanClass = beanDefinition.getBeanClass();
         try {
             Constructor constructor = beanClass.getDeclaredConstructor();
             return constructor.newInstance();
         } catch (Exception e) {
-            throw new BeanException("Failed to instantiate [" + beanClass.getName() + "]", e);
+            throw new BeansException("Failed to instantiate [" + beanClass.getName() + "]", e);
         }
     }
 }

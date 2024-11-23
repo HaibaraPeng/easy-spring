@@ -1,8 +1,7 @@
 package org.example.spring.beans.factory.support;
 
-import org.example.spring.beans.exception.BeanException;
+import org.example.spring.beans.exception.BeansException;
 import org.example.spring.core.io.DefaultResourceLoader;
-import org.example.spring.core.io.Resource;
 import org.example.spring.core.io.ResourceLoader;
 
 /**
@@ -35,7 +34,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
     }
 
     @Override
-    public void loadBeanDefinitions(String[] locations) throws BeanException {
+    public void loadBeanDefinitions(String[] locations) throws BeansException {
         for (String location : locations) {
             loadBeanDefinitions(location);
         }

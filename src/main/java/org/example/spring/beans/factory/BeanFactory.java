@@ -1,9 +1,6 @@
 package org.example.spring.beans.factory;
 
-import org.example.spring.beans.exception.BeanException;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import org.example.spring.beans.exception.BeansException;
 
 /**
  * @Author Roc
@@ -11,5 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public interface BeanFactory {
 
-    Object getBean(String name) throws BeanException;
+    Object getBean(String name) throws BeansException;
+
+    <T> T getBean(String name, Class<T> requiredType) throws BeansException;
 }

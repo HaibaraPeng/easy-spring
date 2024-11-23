@@ -1,6 +1,6 @@
 package org.example.spring.beans.factory.support;
 
-import org.example.spring.beans.exception.BeanException;
+import org.example.spring.beans.exception.BeansException;
 import org.example.spring.beans.factory.config.BeanDefinition;
 
 /**
@@ -9,5 +9,5 @@ import org.example.spring.beans.factory.config.BeanDefinition;
  */
 public interface InstantiationStrategy {
 
-    Object instantiate(BeanDefinition beanDefinition) throws BeanException;
+    Object instantiate(BeanDefinition beanDefinition) throws BeansException;
 }

@@ -2,7 +2,7 @@ package org.example.spring.beans.factory.support;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
-import org.example.spring.beans.exception.BeanException;
+import org.example.spring.beans.exception.BeansException;
 import org.example.spring.beans.factory.config.BeanDefinition;
 
 /**
@@ -11,7 +11,7 @@ import org.example.spring.beans.factory.config.BeanDefinition;
  */
 public class CglibInstantiationStrategy implements InstantiationStrategy {
     @Override
-    public Object instantiate(BeanDefinition beanDefinition) throws BeanException {
+    public Object instantiate(BeanDefinition beanDefinition) throws BeansException {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(beanDefinition.getBeanClass());
         enhancer.setCallback((MethodInterceptor) (obj, method, argsTemp, proxy) -> proxy.invokeSuper(obj, argsTemp));

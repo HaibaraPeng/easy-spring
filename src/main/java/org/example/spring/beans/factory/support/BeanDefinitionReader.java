@@ -1,6 +1,6 @@
 package org.example.spring.beans.factory.support;
 
-import org.example.spring.beans.exception.BeanException;
+import org.example.spring.beans.exception.BeansException;
 import org.example.spring.core.io.Resource;
 import org.example.spring.core.io.ResourceLoader;
 
@@ -14,9 +14,9 @@ public interface BeanDefinitionReader {
 
     ResourceLoader getResourceLoader();
 
-    void loadBeanDefinitions(Resource resource) throws BeanException;
+    void loadBeanDefinitions(Resource resource) throws BeansException;
 
-    void loadBeanDefinitions(String location) throws BeanException;
+    void loadBeanDefinitions(String location) throws BeansException;
 
-    void loadBeanDefinitions(String[] locations) throws BeanException;
+    void loadBeanDefinitions(String[] locations) throws BeansException;
 }

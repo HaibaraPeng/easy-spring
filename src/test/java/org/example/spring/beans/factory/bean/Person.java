@@ -1,12 +1,14 @@
 package org.example.spring.beans.factory.bean;
 
+import org.example.spring.beans.factory.DisposableBean;
+import org.example.spring.beans.factory.InitializingBean;
 import org.example.spring.beans.factory.bean.Car;
 
 /**
  * @Author Roc
  * @Date 2024/11/21 13:54
  */
-public class Person {
+public class Person implements InitializingBean, DisposableBean {
 
     private String name;
 
@@ -38,6 +40,14 @@ public class Person {
         this.car = car;
     }
 
+    public void customInitMethod() {
+        System.out.println("I was born in the method named customInitMethod");
+    }
+
+    public void customDestroyMethod() {
+        System.out.println("I died in the method named customDestroyMethod");
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -45,5 +55,15 @@ public class Person {
                 ", age=" + age +
                 ", car=" + car +
                 '}';
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("I died in the method named destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("I was born in the method named afterPropertiesSet");
     }
 }

@@ -19,4 +19,6 @@
     <bean class="org.example.spring.beans.factory.common.CustomBeanFactoryPostProcessor"/>
 
     <bean class="org.example.spring.beans.factory.common.CustomerBeanPostProcessor"/>
+
+    <bean id="helloService" class="org.example.spring.beans.factory.service.HelloService"/>
 </beans>

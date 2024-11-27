@@ -444,7 +444,7 @@ Aware是感知、意识的意思，Aware接口是标记性接口，其实现子�
 
 
 ```java
-public class HelloService implements ApplicationContextAware, BeanFactoryAware {
+![img](C:\Users\Roc\Documents\Code\home\me\easy-spring\image\11\img.png)public class HelloService implements ApplicationContextAware, BeanFactoryAware {
 
 	private ApplicationContext applicationContext;
 
@@ -481,6 +481,53 @@ public class AwareInterfaceTest {
 		HelloService helloService = applicationContext.getBean("helloService", HelloService.class);
 		assertThat(helloService.getApplicationContext()).isNotNull();
 		assertThat(helloService.getBeanFactory()).isNotNull();
+	}
+}
+```
+
+## bean作用域，增加prototype的支持
+
+
+
+> 代码分支：11-prototype-bean
+
+每次向容器获取prototype作用域bean时，容器都会创建一个新的实例。在BeanDefinition中增加描述bean的作用域的字段scope，创建prototype作用域bean时（AbstractAutowireCapableBeanFactory#doCreateBean），不往singletonObjects中增加该bean。prototype作用域bean不执行销毁方法，查看AbstractAutowireCapableBeanFactory#registerDisposableBeanIfNecessary方法。
+
+至止，bean的生命周期如下：
+
+![](.\image\11\img.png)
+
+测试： prototype-bean.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="car" class="org.springframework.test.bean.Car" scope="prototype">
+        <property name="brand" value="porsche"/>
+    </bean>
+
+</beans>
+```
+
+
+
+```java
+public class PrototypeBeanTest {
+
+	@Test
+	public void testPrototype() throws Exception {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:prototype-bean.xml");
+
+		Car car1 = applicationContext.getBean("car", Car.class);
+		Car car2 = applicationContext.getBean("car", Car.class);
+		assertThat(car1 != car2).isTrue();
 	}
 }
 ```

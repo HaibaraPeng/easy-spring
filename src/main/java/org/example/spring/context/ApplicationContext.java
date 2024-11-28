@@ -8,5 +8,5 @@ import org.example.spring.core.io.ResourceLoader;
  * @Author Roc
  * @Date 2024/11/23 15:47
  */
-public interface ApplicationContext extends ListableBeanFactory, HierarchicalBeanFactory, ResourceLoader {
+public interface ApplicationContext extends ListableBeanFactory, HierarchicalBeanFactory, ResourceLoader, ApplicationEventPublisher {
 }

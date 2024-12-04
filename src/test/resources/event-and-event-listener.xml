@@ -9,7 +9,7 @@
 
     <bean class="org.example.spring.beans.context.event.ContextRefreshedEventListener"/>
 
-    <bean class="org.springframework.test.ioc.common.event.CustomEventListener"/>
+    <bean class="org.example.spring.beans.context.event.CustomEventListener"/>
 
-    <bean class="org.springframework.test.ioc.common.event.ContextClosedEventListener"/>
+    <bean class="org.example.spring.beans.context.event.ContextClosedEventListener"/>
 </beans>

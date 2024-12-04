@@ -8,6 +8,7 @@ import org.example.spring.beans.factory.config.BeanPostProcessor;
 import org.example.spring.context.ApplicationEvent;
 import org.example.spring.context.ApplicationListener;
 import org.example.spring.context.event.ApplicationEventMulticaster;
+import org.example.spring.context.event.ContextClosedEvent;
 import org.example.spring.context.event.ContextRefreshedEvent;
 import org.example.spring.context.event.SimpleApplicationEventMulticaster;
 import org.example.spring.core.io.DefaultResourceLoader;
@@ -125,10 +126,12 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         return getBeanFactory().getBeanDefinitionNames();
     }
 
+    @Override
     public void close() {
         doClose();
     }
 
+    @Override
     public void registerShutdownHook() {
         Thread shutdownHook = new Thread() {
             public void run() {
@@ -140,6 +143,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     }
 
     protected void doClose() {
+        publishEvent(new ContextClosedEvent(this));
         destroyBeans();
     }
 

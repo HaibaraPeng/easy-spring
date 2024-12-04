@@ -16,6 +16,7 @@
         <lombok.version>1.18.34</lombok.version>
         <cglib.version>3.3.0</cglib.version>
         <hutool.version>5.5.0</hutool.version>
+        <aspectj.version>1.8.0</aspectj.version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,12 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
     </dependencies>
 

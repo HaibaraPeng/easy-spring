@@ -1,7 +1,7 @@
 package org.example.spring.aop;
 
 import org.example.spring.aop.aspectj.AspectJExpressionPointcut;
-import org.example.spring.beans.factory.service.HelloService;
+import org.example.spring.service.HelloService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

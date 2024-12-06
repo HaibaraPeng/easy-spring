@@ -1,6 +1,6 @@
 package org.example.spring.beans;
 
-import org.example.spring.beans.factory.service.HelloService;
+import org.example.spring.service.HelloService;
 import org.example.spring.context.support.ClassPathXmlApplicationContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package org.example.spring.beans.factory.service;
+package org.example.spring.service;
 
 import lombok.Getter;
 import org.example.spring.beans.exception.BeansException;

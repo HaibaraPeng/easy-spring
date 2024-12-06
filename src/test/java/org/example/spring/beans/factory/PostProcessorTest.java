@@ -2,8 +2,8 @@ package org.example.spring.beans.factory;
 
 import org.example.spring.beans.factory.bean.Car;
 import org.example.spring.beans.factory.bean.Person;
-import org.example.spring.beans.factory.common.CustomBeanFactoryPostProcessor;
-import org.example.spring.beans.factory.common.CustomerBeanPostProcessor;
+import org.example.spring.common.CustomBeanFactoryPostProcessor;
+import org.example.spring.common.CustomerBeanPostProcessor;
 import org.example.spring.beans.factory.support.DefaultListableBeanFactory;
 import org.example.spring.beans.factory.support.SimpleInstantiationStrategy;
 import org.example.spring.beans.factory.xml.XmlBeanDefinitionReader;

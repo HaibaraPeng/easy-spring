@@ -1,4 +1,4 @@
-package org.example.spring.beans.factory.common;
+package org.example.spring.common;
 
 import org.example.spring.beans.exception.BeansException;
 import org.example.spring.beans.factory.bean.Car;

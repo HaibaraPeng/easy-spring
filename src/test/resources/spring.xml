@@ -16,9 +16,9 @@
         <property name="brand" value="porsche"/>
     </bean>
 
-    <bean class="org.example.spring.beans.factory.common.CustomBeanFactoryPostProcessor"/>
+    <bean class="org.example.spring.common.CustomBeanFactoryPostProcessor"/>
 
-    <bean class="org.example.spring.beans.factory.common.CustomerBeanPostProcessor"/>
+    <bean class="org.example.spring.common.CustomerBeanPostProcessor"/>
 
-    <bean id="helloService" class="org.example.spring.beans.factory.service.HelloService"/>
+    <bean id="helloService" class="org.example.spring.service.HelloService"/>
 </beans>

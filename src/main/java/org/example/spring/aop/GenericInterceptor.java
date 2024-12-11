@@ -11,7 +11,7 @@ import org.aopalliance.intercept.MethodInvocation;
 @Setter
 public class GenericInterceptor implements MethodInterceptor {
 
-    private BeforeAdvice beforeAdvice;
+    private MethodBeforeAdvice beforeAdvice;
     private AfterAdvice afterAdvice;
     private AfterReturningAdvice afterReturningAdvice;
     private ThrowsAdvice throwsAdvice;

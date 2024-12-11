@@ -9,5 +9,4 @@ import java.lang.reflect.Method;
  * @date 2020/12/6
  */
 public interface BeforeAdvice extends Advice {
-    void before(Method method, Object[] args, Object target) throws Throwable;
 }

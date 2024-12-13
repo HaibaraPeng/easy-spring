@@ -3,15 +3,13 @@ package org.example.spring.beans.factory.support;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
+import lombok.Getter;
 import org.example.spring.beans.PropertyValue;
 import org.example.spring.beans.exception.BeansException;
 import org.example.spring.beans.factory.BeanFactoryAware;
 import org.example.spring.beans.factory.DisposableBean;
 import org.example.spring.beans.factory.InitializingBean;
-import org.example.spring.beans.factory.config.AutowireCapableBeanFactory;
-import org.example.spring.beans.factory.config.BeanDefinition;
-import org.example.spring.beans.factory.config.BeanPostProcessor;
-import org.example.spring.beans.factory.config.BeanReference;
+import org.example.spring.beans.factory.config.*;
 
 import java.lang.reflect.Method;
 
@@ -21,7 +19,12 @@ import java.lang.reflect.Method;
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
+    @Getter
     private final InstantiationStrategy instantiationStrategy;
+
+    public AbstractAutowireCapableBeanFactory() {
+        this.instantiationStrategy = new SimpleInstantiationStrategy();
+    }
 
     public AbstractAutowireCapableBeanFactory(InstantiationStrategy instantiationStrategy) {
         this.instantiationStrategy = instantiationStrategy;
@@ -29,7 +32,28 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     @Override
     protected Object createBean(String name, BeanDefinition beanDefinition) {
+        // 如果bean需要代理，直接返回代理对象
+        Object bean = resolveBeforeInstantiation(name, beanDefinition);
+        if (bean != null) return bean;
         return doCreateBean(name, beanDefinition);
+    }
+
+    protected Object resolveBeforeInstantiation(String beanName, BeanDefinition beanDefinition) {
+        Object bean = applyBeanPostProcessorsBeforeInstantiation(beanDefinition.getBeanClass(), beanName);
+        if (bean != null) {
+            bean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
+        }
+        return bean;
+    }
+
+    protected Object applyBeanPostProcessorsBeforeInstantiation(Class beanClass, String beanName) {
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            if (beanPostProcessor instanceof InstantiationAwareBeanPostProcessor) {
+                Object result = ((InstantiationAwareBeanPostProcessor) beanPostProcessor).postProcessBeforeInstantiation(beanClass, beanName);
+                if (null != result) return result;
+            }
+        }
+        return null;
     }
 
     private Object doCreateBean(String name, BeanDefinition beanDefinition) {

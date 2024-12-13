@@ -16,6 +16,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
     private final Map<String, BeanDefinition> beanDefinitions = new ConcurrentHashMap<>();
 
+    public DefaultListableBeanFactory() {
+        super();
+    }
+
     public DefaultListableBeanFactory(InstantiationStrategy instantiationStrategy) {
         super(instantiationStrategy);
     }

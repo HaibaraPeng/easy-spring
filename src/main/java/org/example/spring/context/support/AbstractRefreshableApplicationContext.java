@@ -31,7 +31,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
      * @return
      */
     protected DefaultListableBeanFactory createBeanFactory() {
-        return new DefaultListableBeanFactory(new SimpleInstantiationStrategy());
+        return new DefaultListableBeanFactory();
     }
 
     /**

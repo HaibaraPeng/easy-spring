@@ -14,12 +14,8 @@ public class AspectJExpressionPointcutAdvisor implements PointcutAdvisor {
     private AspectJExpressionPointcut pointcut;
     @Setter
     private Advice advice;
+    @Setter
     private String expression;
-
-    public void setExpression(String expression) {
-        this.expression = expression;
-        pointcut = new AspectJExpressionPointcut(expression);
-    }
 
     @Override
     public Advice getAdvice() {
@@ -28,6 +24,9 @@ public class AspectJExpressionPointcutAdvisor implements PointcutAdvisor {
 
     @Override
     public Pointcut getPointcut() {
+        if (pointcut == null) {
+            pointcut = new AspectJExpressionPointcut(expression);
+        }
         return pointcut;
     }
 }

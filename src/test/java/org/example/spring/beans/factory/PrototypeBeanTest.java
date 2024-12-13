@@ -1,6 +1,6 @@
 package org.example.spring.beans.factory;
 
-import org.example.spring.beans.factory.bean.Car;
+import org.example.spring.bean.Car;
 import org.example.spring.context.support.ClassPathXmlApplicationContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -2,8 +2,8 @@ package org.example.spring.beans.factory;
 
 import org.example.spring.beans.PropertyValue;
 import org.example.spring.beans.PropertyValues;
-import org.example.spring.beans.factory.bean.Car;
-import org.example.spring.beans.factory.bean.Person;
+import org.example.spring.bean.Car;
+import org.example.spring.bean.Person;
 import org.example.spring.beans.factory.config.BeanDefinition;
 import org.example.spring.beans.factory.config.BeanReference;
 import org.example.spring.beans.factory.support.DefaultListableBeanFactory;

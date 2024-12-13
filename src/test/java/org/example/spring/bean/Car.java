@@ -1,4 +1,4 @@
-package org.example.spring.beans.factory.bean;
+package org.example.spring.bean;
 
 /**
  * @Author Roc

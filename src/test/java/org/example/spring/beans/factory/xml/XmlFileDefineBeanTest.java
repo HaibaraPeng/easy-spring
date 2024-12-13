@@ -1,7 +1,7 @@
 package org.example.spring.beans.factory.xml;
 
-import org.example.spring.beans.factory.bean.Car;
-import org.example.spring.beans.factory.bean.Person;
+import org.example.spring.bean.Car;
+import org.example.spring.bean.Person;
 import org.example.spring.beans.factory.support.DefaultListableBeanFactory;
 import org.example.spring.beans.factory.support.SimpleInstantiationStrategy;
 import org.junit.jupiter.api.Test;

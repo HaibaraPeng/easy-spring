@@ -1,7 +1,7 @@
 package org.example.spring.beans.context;
 
-import org.example.spring.beans.factory.bean.Car;
-import org.example.spring.beans.factory.bean.Person;
+import org.example.spring.bean.Car;
+import org.example.spring.bean.Person;
 import org.example.spring.context.support.ClassPathXmlApplicationContext;
 import org.junit.jupiter.api.Test;
 

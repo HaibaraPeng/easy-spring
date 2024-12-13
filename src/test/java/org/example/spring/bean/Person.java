@@ -1,8 +1,8 @@
-package org.example.spring.beans.factory.bean;
+package org.example.spring.bean;
 
 import org.example.spring.beans.factory.DisposableBean;
 import org.example.spring.beans.factory.InitializingBean;
-import org.example.spring.beans.factory.bean.Car;
+import org.example.spring.bean.Car;
 
 /**
  * @Author Roc

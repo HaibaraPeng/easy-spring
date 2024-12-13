@@ -1,7 +1,7 @@
 package org.example.spring.common;
 
 import org.example.spring.beans.factory.FactoryBean;
-import org.example.spring.beans.factory.bean.Car;
+import org.example.spring.bean.Car;
 
 /**
  * @Author Roc

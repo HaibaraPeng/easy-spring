@@ -5,6 +5,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.example.spring.aop.*;
 import org.example.spring.aop.aspectj.AspectJExpressionPointcutAdvisor;
 import org.example.spring.aop.framework.ProxyFactory;
+import org.example.spring.beans.PropertyValues;
 import org.example.spring.beans.exception.BeansException;
 import org.example.spring.beans.factory.BeanFactory;
 import org.example.spring.beans.factory.BeanFactoryAware;
@@ -64,6 +65,11 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
             throw new BeansException("Error create proxy bean for: " + beanName, e);
         }
         return null;
+    }
+
+    @Override
+    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        return pvs;
     }
 
     /**

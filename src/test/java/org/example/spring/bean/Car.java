@@ -1,5 +1,6 @@
 package org.example.spring.bean;
 
+import org.example.spring.beans.factory.annotation.Value;
 import org.example.spring.stereotype.Component;
 
 /**
@@ -9,6 +10,7 @@ import org.example.spring.stereotype.Component;
 @Component
 public class Car {
 
+    @Value("${brand}")
     private String brand;
 
     public String getBrand() {

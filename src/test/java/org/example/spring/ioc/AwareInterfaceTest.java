@@ -1,4 +1,4 @@
-package org.example.spring.beans;
+package org.example.spring.ioc;
 
 import org.example.spring.service.HelloService;
 import org.example.spring.context.support.ClassPathXmlApplicationContext;

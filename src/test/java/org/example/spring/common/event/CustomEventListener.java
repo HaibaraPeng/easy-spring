@@ -1,4 +1,4 @@
-package org.example.spring.beans.context.event;
+package org.example.spring.common.event;
 
 import org.example.spring.context.ApplicationListener;
 

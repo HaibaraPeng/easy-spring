@@ -1,6 +1,6 @@
-package org.example.spring.beans.context;
+package org.example.spring.ioc;
 
-import org.example.spring.beans.context.event.CustomEvent;
+import org.example.spring.common.event.CustomEvent;
 import org.example.spring.context.support.ClassPathXmlApplicationContext;
 import org.junit.jupiter.api.Test;
 

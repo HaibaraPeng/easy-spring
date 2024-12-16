@@ -1,4 +1,4 @@
-package org.example.spring.beans.factory;
+package org.example.spring.ioc;
 
 import org.example.spring.beans.PropertyValue;
 import org.example.spring.beans.PropertyValues;

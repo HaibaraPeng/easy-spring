@@ -1,9 +1,10 @@
-package org.example.spring.beans.factory.xml;
+package org.example.spring.ioc;
 
 import org.example.spring.bean.Car;
 import org.example.spring.bean.Person;
 import org.example.spring.beans.factory.support.DefaultListableBeanFactory;
 import org.example.spring.beans.factory.support.SimpleInstantiationStrategy;
+import org.example.spring.beans.factory.xml.XmlBeanDefinitionReader;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

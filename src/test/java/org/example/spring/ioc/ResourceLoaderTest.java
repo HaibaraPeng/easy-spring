@@ -1,6 +1,10 @@
-package org.example.spring.core.io;
+package org.example.spring.ioc;
 
 import cn.hutool.core.io.IoUtil;
+import org.example.spring.core.io.DefaultResourceLoader;
+import org.example.spring.core.io.FileSystemResource;
+import org.example.spring.core.io.Resource;
+import org.example.spring.core.io.UrlResource;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;

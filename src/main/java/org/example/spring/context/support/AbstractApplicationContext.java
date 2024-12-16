@@ -1,6 +1,6 @@
 package org.example.spring.context.support;
 
-import org.example.spring.ConfigurableApplicationContext;
+import org.example.spring.context.ConfigurableApplicationContext;
 import org.example.spring.beans.exception.BeansException;
 import org.example.spring.beans.factory.ConfigurableListableBeanFactory;
 import org.example.spring.beans.factory.config.BeanFactoryPostProcessor;

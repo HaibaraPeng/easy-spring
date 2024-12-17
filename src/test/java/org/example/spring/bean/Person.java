@@ -3,17 +3,21 @@ package org.example.spring.bean;
 import org.example.spring.beans.factory.DisposableBean;
 import org.example.spring.beans.factory.InitializingBean;
 import org.example.spring.bean.Car;
+import org.example.spring.beans.factory.annotation.Autowired;
+import org.example.spring.stereotype.Component;
 
 /**
  * @Author Roc
  * @Date 2024/11/21 13:54
  */
+@Component
 public class Person implements InitializingBean, DisposableBean {
 
     private String name;
 
     private int age;
 
+    @Autowired
     private Car car;
 
     public String getName() {

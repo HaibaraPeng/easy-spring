@@ -1,5 +1,6 @@
 package org.example.spring.beans.factory.annotation;
 
+import cn.hutool.core.bean.BeanUtil;
 import org.example.spring.beans.PropertyValue;
 import org.example.spring.beans.PropertyValues;
 import org.example.spring.beans.exception.BeansException;
@@ -52,7 +53,23 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
             }
         }
 
-        // 处理@Autowired注解 TODO
+        // 处理@Autowired注解
+        for (Field field : fields) {
+            Autowired autowiredAnnotation = field.getAnnotation(Autowired.class);
+            if (autowiredAnnotation != null) {
+                Class<?> fieldType = field.getType();
+                String dependentBeanName = null;
+                Qualifier qualifierAnnotation = field.getAnnotation(Qualifier.class);
+                Object dependentBean = null;
+                if (qualifierAnnotation != null) {
+                    dependentBeanName = qualifierAnnotation.value();
+                    dependentBean = beanFactory.getBean(dependentBeanName, fieldType);
+                } else {
+                    dependentBean = beanFactory.getBean(fieldType);
+                }
+                BeanUtil.setFieldValue(bean, field.getName(), dependentBean);
+            }
+        }
 
         return pvs;
     }

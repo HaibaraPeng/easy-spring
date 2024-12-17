@@ -1191,3 +1191,87 @@ public class AutowiredAnnotationTest {
 	}
 }
 ```
+
+## bug fix：没有为代理bean设置属性
+
+
+
+> 代码分支: 25-populate-proxy-bean-with-property-values
+
+问题现象：没有为代理bean设置属性
+
+问题原因：织入逻辑在InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation中执行，而该方法如果返回非null，会导致"短路"，不会执行后面的设置属性逻辑。因此如果该方法中返回代理bean后，不会为代理bean设置属性。
+
+修复方案：跟spring保持一致，将织入逻辑迁移到BeanPostProcessor#postProcessAfterInitialization，即将DefaultAdvisorAutoProxyCreator#postProcessBeforeInstantiation的内容迁移到DefaultAdvisorAutoProxyCreator#postProcessAfterInitialization中。
+
+顺便完善spring的扩展机制，为InstantiationAwareBeanPostProcessor增加postProcessAfterInstantiation方法，该方法在bean实例化之后设置属性之前执行。
+
+至此，bean的生命周期比较完整了，如下：
+
+![img](.\image\25\populate-proxy-bean-with-property-values.png)
+
+测试： populate-proxy-bean-with-property-values.xml
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="worldService" class="org.springframework.test.service.WorldServiceImpl">
+        <property name="name" value="earth"/>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="pointcutAdvisor" class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* org.springframework.test.service.WorldService.explode(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
+
+
+    <bean id="methodInterceptor" class="org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="beforeAdvice" class="org.springframework.test.common.WorldServiceBeforeAdvice"/>
+
+</beans>
+```
+
+
+
+```
+public class WorldServiceImpl implements WorldService {
+
+	private String name;
+
+	@Override
+	public void explode() {
+		System.out.println("The " + name + " is going to explode");
+	}
+
+	//setter and getter
+}
+```
+
+
+
+```
+public class AutoProxyTest {
+
+	@Test
+	public void testPopulateProxyBeanWithPropertyValues() throws Exception {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:populate-proxy-bean-with-property-values.xml");
+
+		//获取代理对象
+		WorldService worldService = applicationContext.getBean("worldService", WorldService.class);
+		worldService.explode();
+		assertThat(worldService.getName()).isEqualTo("earth");
+	}
+}
+```

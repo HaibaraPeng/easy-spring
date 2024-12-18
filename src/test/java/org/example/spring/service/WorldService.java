@@ -7,4 +7,6 @@ package org.example.spring.service;
 public interface WorldService {
 
     void explode();
+
+    String getName();
 }

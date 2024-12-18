@@ -35,12 +35,7 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        return bean;
-    }
-
-    @Override
-    public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
-        if (isInfrastructureClass(beanClass)) {
+        if (isInfrastructureClass(bean.getClass())) {
             return null;
         }
 
@@ -48,11 +43,9 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
         try {
             for (AspectJExpressionPointcutAdvisor advisor : advisors) {
                 ClassFilter classFilter = advisor.getPointcut().getClassFilter();
-                if (classFilter.matches(beanClass)) {
+                if (classFilter.matches(bean.getClass())) {
                     AdvisedSupport advisedSupport = new AdvisedSupport();
 
-                    BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName);
-                    Object bean = beanFactory.getInstantiationStrategy().instantiate(beanDefinition);
                     TargetSource targetSource = new TargetSource(bean);
                     advisedSupport.setTargetSource(targetSource);
                     advisedSupport.setMethodInterceptor((MethodInterceptor) advisor.getAdvice());
@@ -64,7 +57,18 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
         } catch (Exception e) {
             throw new BeansException("Error create proxy bean for: " + beanName, e);
         }
+        return bean;
+    }
+
+    @Override
+    public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+
         return null;
+    }
+
+    @Override
+    public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
+        return true;
     }
 
     @Override
